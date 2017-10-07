@@ -15,7 +15,7 @@ $mailer->send(
     (new \Swift_Message())
         ->setTo('bjohnson@example.com', 'Bill Johnson')
         ->setSubject('Hi')
-        ->setBody('This is awesome, I don't need to specify the from address!')
+        ->setBody('This is awesome, I don\'t need to specify the from address!')
 );
 ```
 
@@ -38,13 +38,13 @@ When you setup a `\Swift_Mailer` instance, create and register the plugin.
 ```php
 use Finesse\SwiftMailerDefaultsPlugin\SwiftMailerDefaultsPlugin;
 
-// Setup you mailing transport
+// Setup you email send transport
 $transport = new \Swift_SmtpTransport();
 
 // Create a plugin instance
 $defaultsPlugin = new SwiftMailerDefaultsPlugin(/* default properties */);
 
-// Assemble it
+// Assemble them
 $mailer = new \Swift_Mailer($transport);
 $mailer->registerPlugin($defaultsPlugin);
 ```
@@ -68,15 +68,15 @@ $defaultsPlugin = new SwiftMailerDefaultsPlugin([
 ]);
 ```
 
-The `from` value has the same format as the first argument of the `\Swift_Message::setFrom` method.
+The `from` value has the same format as the first argument of the `\Swift_Mime_SimpleMessage::setFrom` method.
 
-Or
+Or:
 
 ```php
 $defaultsPlugin->setFrom('johndoe@example.com', 'John Doe');
 ```
 
-The arguments has the same format as the `\Swift_Message::setFrom` arguments.
+The arguments has the same format as the `\Swift_Mime_SimpleMessage::setFrom` arguments.
 
 
 ## Versions compatibility

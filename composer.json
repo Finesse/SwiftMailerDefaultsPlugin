@@ -1,7 +1,7 @@
 {
 	"name": "finesse/swiftmailer-defaults-plugin",
 	"description": "A plugin for SwiftMailer that adds an ability to set default Message properties (from, etc.)",
-	"keywords": ["swiftmailer", "plugin", "defaluts"],
+	"keywords": ["swiftmailer", "plugin", "defaults"],
 	"type": "library",
 	"homepage": "https://github.com/FinesseRus/SwiftMailerDefaultsPlugin",
 	"license": "MIT",
