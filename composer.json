@@ -16,6 +16,7 @@
 		"swiftmailer/swiftmailer": "^6.0"
 	},
 	"require-dev": {
+		"swiftmailer/swiftmailer": "6.0.*",
 		"phpunit/phpunit": "^6.4",
 		"mockery/mockery": "^1.0"
 	},
