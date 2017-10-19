@@ -5,14 +5,16 @@ namespace Finesse\SwiftMailerDefaultsPlugin;
 /**
  * Plugin for SwiftMailer that adds an ability to set default Message properties (from, etc.).
  *
- * @author Surgie
+ * @author Surgie Finesse <finesserus@gmail.com>
  */
 class SwiftMailerDefaultsPlugin implements \Swift_Events_EventListener, \Swift_Events_SendListener
 {
     /**
-     * @var array|null Default from address and name
+     * @var array Default message properties. The indexes are the properties names in CapitalCase (From, ReplyTo, ...).
+     *     The values are lists of the arguments of the corresponding Swift_Mime_SimpleMessage methods (setFrom,
+     *     setReplyTo, ...).
      */
-    protected $defaultFrom;
+    protected $defaults = [];
 
     /**
      * @var \Swift_Mime_SimpleMessage|null Message that was received before sending and is not modified. It is kept to
@@ -21,36 +23,36 @@ class SwiftMailerDefaultsPlugin implements \Swift_Events_EventListener, \Swift_E
     protected $originalMessage;
 
     /**
-     * @param array $defaults Default Message properties. Possible keys and their values:
-     *  - from - From address. Has the same value format as the first argument of the \Swift_Message::setFrom method.
+     * @param array $defaults Default Message properties. See the readme for more information.
      */
     public function __construct(array $defaults = [])
     {
-        if (isset($defaults['from'])) {
-            $this->setDefaultFrom($defaults['from']);
+        foreach ($defaults as $property => $value) {
+            if ($value !== null) {
+                $this->setDefault($property, $value);
+            }
         }
     }
 
     /**
-     * Sets default from address and name. The arguments has the same format as the \Swift_Mime_SimpleMessage::setFrom
-     * method. You can pass null to reset the default from address.
+     * Set a default property value.
      *
-     * @return self Itself
-     * @see \Swift_Mime_SimpleMessage::setFrom More amount the arguments format
+     * @param string $property The property name. See the readme for more information.
+     * @param array ...$arguments The list of argument for the Swift_Mime_SimpleMessage property setter
      */
-    public function setDefaultFrom($addresses, string $name = null): self
+    public function setDefault(string $property, ...$arguments)
     {
-        if (isset($addresses)) {
-            if (!is_array($addresses) && isset($name)) {
-                $addresses = array($addresses => $name);
-            }
+        $this->defaults[ucfirst($property)] = $arguments;
+    }
 
-            $this->defaultFrom = (array)$addresses;
-        } else {
-            $this->defaultFrom = null;
-        }
-
-        return $this;
+    /**
+     * Removes the default property value.
+     *
+     * @param string $property The property name. See the readme for more information.
+     */
+    public function unsetDefault(string $property)
+    {
+        unset($this->defaults[ucfirst($property)]);
     }
 
     /**
@@ -61,8 +63,11 @@ class SwiftMailerDefaultsPlugin implements \Swift_Events_EventListener, \Swift_E
         $message = $event->getMessage();
         $this->originalMessage = clone $message;
 
-        if ($this->defaultFrom !== null && empty($message->getFrom())) {
-            $message->setFrom($this->defaultFrom);
+        foreach ($this->defaults as $property => $arguments) {
+            $originalValue = $message->{'get'.$property}();
+            if (empty($originalValue)) {
+                call_user_func_array([$message, 'set'.$property], $arguments);
+            }
         }
     }
 
@@ -73,7 +78,10 @@ class SwiftMailerDefaultsPlugin implements \Swift_Events_EventListener, \Swift_E
     {
         $message = $event->getMessage();
 
-        $message->setFrom($this->originalMessage->getFrom());
+        foreach ($this->defaults as $property => $arguments) {
+            $originalValue = $this->originalMessage->{'get'.$property}();
+            $message->{'set'.$property}($originalValue);
+        }
 
         $this->originalMessage = null;
     }

@@ -7,7 +7,8 @@ This plugin adds a possibility to set default parameters for sent Messages (for 
 $transport = new \Swift_SmtpTransport();
 $mailer = new \Swift_Mailer($transport);
 $mailer->registerPlugin(new \Finesse\SwiftMailerDefaultsPlugin\SwiftMailerDefaultsPlugin([
-    'from' => ['johndoe@example.com' => 'John Doe']
+    'from' => ['johndoe@example.com' => 'John Doe'],
+    'replyTo' => 'jackdoe@example.com'
 ]));
 
 // Use the Mailer many times
@@ -58,25 +59,45 @@ $mailer->send($message);
 
 If you specify, the specified properties will override the default properties.
 
-### Supported properties
+### __constructor
 
-#### From address
+You can pass to the constructor all the properties which you can set to a `Swift_Mime_SimpleMessage` instance using the 
+`set...` methods. For example:
 
 ```php
 $defaultsPlugin = new SwiftMailerDefaultsPlugin([
-    'from' => 'johndoe@example.com' // ['johndoe@example.com' => 'John Doe'], ['johndoe@example.com' => 'John Doe', 'jackdoe@example.com' => 'Jack Doe']
+    'from' => 'johndoe@example.com',
+    'subject' => 'Notification'
 ]);
 ```
 
-The `from` value has the same format as the first argument of the `\Swift_Mime_SimpleMessage::setFrom` method.
+The array indexes are the name of the properties which are the `Swift_Mime_SimpleMessage` methods names without `set` and
+with lowercase first letter. For example, the `body` property corresponds to the `setBody` method, `readReceiptTo` to
+`setReadReceiptTo` and so on.
 
-Or:
+The array values are the first and the only arguments for the corresponding methods. Properties with the `null` value 
+are discarded.
+
+### setDefault
+
+Sets a default value for a property.
 
 ```php
-$defaultsPlugin->setFrom('johndoe@example.com', 'John Doe');
+$defaultsPlugin->setDefault('sender', 'chasy@example.com', 'Chasy');
 ```
 
-The arguments has the same format as the `\Swift_Mime_SimpleMessage::setFrom` arguments.
+The first argument is the property name (see `__constructor` reference). The rest arguments are the corresponding method
+arguments.
+
+### unsetDefault
+
+Removes a default value
+
+```php
+$defaultsPlugin->unsetDefault('sender');
+```
+
+The only argument is the property name (see `__constructor` reference).
 
 
 ## Versions compatibility
