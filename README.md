@@ -4,6 +4,7 @@
 [![Total Downloads](https://poser.pugx.org/finesse/swiftmailer-defaults-plugin/downloads)](https://packagist.org/packages/finesse/swiftmailer-defaults-plugin)
 [![Build Status](https://travis-ci.org/FinesseRus/SwiftMailerDefaultsPlugin.svg?branch=master)](https://travis-ci.org/FinesseRus/SwiftMailerDefaultsPlugin)
 [![Coverage Status](https://coveralls.io/repos/github/FinesseRus/SwiftMailerDefaultsPlugin/badge.svg?branch=master)](https://coveralls.io/github/FinesseRus/SwiftMailerDefaultsPlugin?branch=master)
+[![Dependency Status](https://www.versioneye.com/php/finesse:swiftmailer-defaults-plugin/badge)](https://www.versioneye.com/php/finesse:swiftmailer-defaults-plugin)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/c0423fb6-bfb0-47a4-8a0c-eaae3e400634/mini.png)](https://insight.sensiolabs.com/projects/c0423fb6-bfb0-47a4-8a0c-eaae3e400634)
 
 This plugin adds a possibility to set default parameters for sent Messages 
