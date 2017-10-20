@@ -1,6 +1,13 @@
 # [Swift Mailer](https://swiftmailer.symfony.com/) Defaults Plugin
 
-This plugin adds a possibility to set default parameters for sent Messages (for example, default from address).
+[![Latest Stable Version](https://poser.pugx.org/finesse/swiftmailer-defaults-plugin/v/stable)](https://packagist.org/packages/finesse/swiftmailer-defaults-plugin)
+[![Total Downloads](https://poser.pugx.org/finesse/swiftmailer-defaults-plugin/downloads)](https://packagist.org/packages/finesse/swiftmailer-defaults-plugin)
+[![Build Status](https://travis-ci.org/FinesseRus/SwiftMailerDefaultsPlugin.svg?branch=master)](https://travis-ci.org/FinesseRus/SwiftMailerDefaultsPlugin)
+[![Coverage Status](https://coveralls.io/repos/github/FinesseRus/SwiftMailerDefaultsPlugin/badge.svg?branch=master)](https://coveralls.io/github/FinesseRus/SwiftMailerDefaultsPlugin?branch=master)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/c0423fb6-bfb0-47a4-8a0c-eaae3e400634/mini.png)](https://insight.sensiolabs.com/projects/c0423fb6-bfb0-47a4-8a0c-eaae3e400634)
+
+This plugin adds a possibility to set default parameters for sent Messages 
+(default from address, reply to, subject and so on).
 
 ```php
 // Set up a Mailer
@@ -71,9 +78,9 @@ $defaultsPlugin = new SwiftMailerDefaultsPlugin([
 ]);
 ```
 
-The array indexes are the name of the properties which are the `Swift_Mime_SimpleMessage` methods names without `set` and
-with lowercase first letter. For example, the `body` property corresponds to the `setBody` method, `readReceiptTo` to
-`setReadReceiptTo` and so on.
+The array indexes are the names of the properties which are the `Swift_Mime_SimpleMessage` methods names without the 
+`set` word and with lowercase first letter. For example, the `body` property corresponds to the `setBody` method, 
+`readReceiptTo` to `setReadReceiptTo` and so on.
 
 The array values are the first and the only arguments for the corresponding methods. Properties with the `null` value 
 are discarded.
@@ -86,8 +93,8 @@ Sets a default value for a property.
 $defaultsPlugin->setDefault('sender', 'chasy@example.com', 'Chasy');
 ```
 
-The first argument is the property name (see `__constructor` reference). The rest arguments are the corresponding method
-arguments.
+The first argument is the property name (see [__constructor](#__constructor) for reference). The rest arguments are the 
+corresponding method arguments.
 
 ### unsetDefault
 
@@ -97,7 +104,7 @@ Removes a default value
 $defaultsPlugin->unsetDefault('sender');
 ```
 
-The only argument is the property name (see `__constructor` reference).
+The only argument is the property name (see [__constructor](#__constructor) for reference).
 
 
 ## Versions compatibility
