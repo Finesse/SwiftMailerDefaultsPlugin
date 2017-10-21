@@ -6,8 +6,8 @@ php:
     - hhvm
 
 install:
-    - composer install
-    - composer require satooshi/php-coveralls --dev
+    - composer install --ignore-platform-reqs
+    - composer require satooshi/php-coveralls --dev --ignore-platform-reqs
 
 script:
     - ./vendor/bin/phpunit --coverage-clover ./tests/logs/clover.xml
