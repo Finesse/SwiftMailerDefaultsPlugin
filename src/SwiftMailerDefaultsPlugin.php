@@ -66,7 +66,7 @@ class SwiftMailerDefaultsPlugin implements \Swift_Events_EventListener, \Swift_E
         foreach ($this->defaults as $property => $arguments) {
             $originalValue = $message->{'get'.$property}();
             if (empty($originalValue)) {
-                call_user_func_array([$message, 'set'.$property], $arguments);
+                $message->{'set'.$property}(...$arguments);
             }
         }
     }
