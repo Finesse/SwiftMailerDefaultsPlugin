@@ -3,11 +3,10 @@ php:
     - 7.0
     - 7.1
     - 7.2
-    - hhvm
 
 install:
-    - composer install --ignore-platform-reqs
-    - composer require satooshi/php-coveralls --dev --ignore-platform-reqs
+    - composer install
+    - composer require satooshi/php-coveralls --dev
 
 script:
     - ./vendor/bin/phpunit --coverage-clover ./tests/logs/clover.xml
