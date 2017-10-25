@@ -129,4 +129,13 @@ class SwiftMailerDefaultsPluginTest extends TestCase
 
         return $event;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function tearDown()
+    {
+        parent::tearDown();
+        \Mockery::close();
+    }
 }
