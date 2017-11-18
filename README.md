@@ -12,16 +12,16 @@ This plugin adds a possibility to set default parameters for sent Messages
 
 ```php
 // Set up a Mailer
-$transport = new \Swift_SmtpTransport();
-$mailer = new \Swift_Mailer($transport);
-$mailer->registerPlugin(new \Finesse\SwiftMailerDefaultsPlugin\SwiftMailerDefaultsPlugin([
+$transport = new Swift_SmtpTransport();
+$mailer = new Swift_Mailer($transport);
+$mailer->registerPlugin(new Finesse\SwiftMailerDefaultsPlugin\SwiftMailerDefaultsPlugin([
     'from' => ['johndoe@example.com' => 'John Doe'],
     'replyTo' => 'jackdoe@example.com'
 ]));
 
 // Use the Mailer many times
 $mailer->send(
-    (new \Swift_Message())
+    (new Swift_Message())
         ->setTo('bjohnson@example.com', 'Bill Johnson')
         ->setSubject('Hi')
         ->setBody('This is awesome, I don\'t need to specify the from address!')
@@ -42,26 +42,30 @@ composer require finesse/swiftmailer-defaults-plugin
 
 ## How to use
 
-When you setup a `\Swift_Mailer` instance, create and register the plugin.
+When you setup a `Swift_Mailer` instance, create and register the plugin.
 
 ```php
 use Finesse\SwiftMailerDefaultsPlugin\SwiftMailerDefaultsPlugin;
+use Swift_Mailer;
+use Swift_SmtpTransport;
 
 // Setup you email send transport
-$transport = new \Swift_SmtpTransport();
+$transport = new Swift_SmtpTransport();
 
 // Create a plugin instance
 $defaultsPlugin = new SwiftMailerDefaultsPlugin(/* default properties */);
 
 // Assemble them
-$mailer = new \Swift_Mailer($transport);
+$mailer = new Swift_Mailer($transport);
 $mailer->registerPlugin($defaultsPlugin);
 ```
 
 When you need to send a email, just send it without specifying the default properties you set in the plugin instance.
 
 ```php
-$message = new \Swift_Message();
+use Swift_Message;
+
+$message = new Swift_Message();
 $mailer->send($message);
 ```
 
