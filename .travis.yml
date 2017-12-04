@@ -10,8 +10,8 @@ env:
         - DEPENDENCIES="low"
 
 install:
-    - if [[ "$DEPENDENCIES" = 'high' ]]; then composer install; fi
-    - if [[ "$DEPENDENCIES" = 'low' ]]; then composer install --prefer-lowest; fi
+    - if [[ "$DEPENDENCIES" = 'high' ]]; then composer update; fi
+    - if [[ "$DEPENDENCIES" = 'low' ]]; then composer update --prefer-lowest; fi
     - composer require satooshi/php-coveralls --dev
 
 script:
