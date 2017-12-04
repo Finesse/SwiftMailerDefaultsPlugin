@@ -5,9 +5,8 @@ php:
     - 7.2
 
 env:
-    matrix:
-        - DEPENDENCIES="high"
-        - DEPENDENCIES="low"
+    - DEPENDENCIES="high"
+    - DEPENDENCIES="low"
 
 install:
     - if [[ "$DEPENDENCIES" = 'high' ]]; then composer update; fi
