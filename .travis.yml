@@ -11,13 +11,13 @@ env:
 install:
     - if [[ "$DEPENDENCIES" = 'high' ]]; then composer update; fi
     - if [[ "$DEPENDENCIES" = 'low' ]]; then composer update --prefer-lowest; fi
-    - composer require satooshi/php-coveralls --dev
+    - composer require php-coveralls/php-coveralls '^2.0' --dev
 
 script:
-    - ./vendor/bin/phpunit --coverage-clover ./tests/logs/clover.xml
+    - php vendor/bin/phpunit --coverage-clover ./tests/logs/clover.xml
 
 after_script:
-    - php vendor/bin/coveralls -v
+    - php vendor/bin/php-coveralls -v
 
 notifications:
     email: false
