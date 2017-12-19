@@ -19,6 +19,7 @@ class SwiftMailerDefaultsPluginTest extends TestCase
     {
         $plugin = new SwiftMailerDefaultsPlugin([
             'subject' => 'Hello',
+            'description' => 'Hello, world',
             'sender' => ['sender@test.com' => 'John the Sender'],
             'from' => 'from@test.com',
             'replyTo' => [
@@ -29,19 +30,21 @@ class SwiftMailerDefaultsPluginTest extends TestCase
 
         // A message without the properties above
         $message = new \Swift_Message();
-        $message->setBody('Hello, world');
+        $message->setBody('Hello, world, I am a message');
         $message->setTo('to@test.com');
         $event = $this->createSendEvent($message);
         $plugin->beforeSendPerformed($event);
         $this->assertEquals('Hello', $event->getMessage()->getSubject());
-        $this->assertEquals('Hello, world', $event->getMessage()->getBody());
+        $this->assertEquals('Hello, world', $event->getMessage()->getDescription());
+        $this->assertEquals('Hello, world, I am a message', $event->getMessage()->getBody());
         $this->assertEquals(['from@test.com' => null], $event->getMessage()->getFrom());
         $this->assertEquals(['sender@test.com' => 'John the Sender'], $event->getMessage()->getSender());
         $this->assertEquals(['to@test.com' => null], $event->getMessage()->getTo());
         $this->assertEquals(['reply1@test.com' => null, 'reply2@test.com' => 'A replier'], $event->getMessage()->getReplyTo());
         $plugin->sendPerformed($event);
         $this->assertEquals('', $message->getSubject());
-        $this->assertEquals('Hello, world', $message->getBody());
+        $this->assertNull($event->getMessage()->getDescription());
+        $this->assertEquals('Hello, world, I am a message', $message->getBody());
         $this->assertEquals([], $message->getFrom());
         $this->assertEquals([], $message->getSender());
         $this->assertEquals(['to@test.com' => null], $message->getTo());
@@ -50,15 +53,18 @@ class SwiftMailerDefaultsPluginTest extends TestCase
         // A message with the properties above
         $message = new \Swift_Message();
         $message->setSubject('Bonjour');
+        $message->setDescription('0'); // '0' is an empty value according to PHP
         $message->setSender('sender2@test.com');
         $event = $this->createSendEvent($message);
         $plugin->beforeSendPerformed($event);
         $this->assertEquals('Bonjour', $event->getMessage()->getSubject());
+        $this->assertEquals('0', $event->getMessage()->getDescription());
         $this->assertEquals(['from@test.com' => null], $event->getMessage()->getFrom());
         $this->assertEquals(['sender2@test.com' => null], $event->getMessage()->getSender());
         $this->assertEquals(['reply1@test.com' => null, 'reply2@test.com' => 'A replier'], $event->getMessage()->getReplyTo());
         $plugin->sendPerformed($event);
         $this->assertEquals('Bonjour', $message->getSubject());
+        $this->assertEquals('0', $event->getMessage()->getDescription());
         $this->assertEquals([], $message->getFrom());
         $this->assertEquals(['sender2@test.com' => null], $message->getSender());
         $this->assertEquals([], $message->getReplyTo());
