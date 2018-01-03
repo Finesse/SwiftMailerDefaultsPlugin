@@ -7,7 +7,7 @@
 [![Dependency Status](https://www.versioneye.com/php/finesse:swiftmailer-defaults-plugin/badge)](https://www.versioneye.com/php/finesse:swiftmailer-defaults-plugin)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/c0423fb6-bfb0-47a4-8a0c-eaae3e400634/mini.png)](https://insight.sensiolabs.com/projects/c0423fb6-bfb0-47a4-8a0c-eaae3e400634)
 
-This plugin adds a possibility to set default parameters for sent Messages 
+This plugin adds a possibility to set default properties for the sent Messages 
 (default from address, reply to, subject and so on).
 
 ```php
@@ -42,25 +42,25 @@ composer require finesse/swiftmailer-defaults-plugin
 
 ## How to use
 
-When you setup a `Swift_Mailer` instance, create and register the plugin.
+Create and register a plugin instance when you setup a `Swift_Mailer` instance.
 
 ```php
 use Finesse\SwiftMailerDefaultsPlugin\SwiftMailerDefaultsPlugin;
 use Swift_Mailer;
 use Swift_SmtpTransport;
 
-// Setup you email send transport
+// Setup an emails sending transport
 $transport = new Swift_SmtpTransport();
 
 // Create a plugin instance
 $defaultsPlugin = new SwiftMailerDefaultsPlugin(/* default properties */);
 
-// Assemble them
+// Assemble them with a mailer
 $mailer = new Swift_Mailer($transport);
 $mailer->registerPlugin($defaultsPlugin);
 ```
 
-When you need to send a email, just send it without specifying the default properties you set in the plugin instance.
+When you need to send an email, just send it without specifying the parameters you set to the plugin instance.
 
 ```php
 use Swift_Message;
@@ -69,11 +69,11 @@ $message = new Swift_Message();
 $mailer->send($message);
 ```
 
-If you specify, the specified properties will override the default properties.
+If you specify, the specified parameters will override the default properties.
 
 ### __constructor
 
-You can pass to the constructor all the properties which you can set to a `Swift_Mime_SimpleMessage` instance using the 
+You can pass to the constructor all the properties that you can set to a `Swift_Mime_SimpleMessage` instance using the 
 `set...` methods. For example:
 
 ```php
@@ -83,12 +83,12 @@ $defaultsPlugin = new SwiftMailerDefaultsPlugin([
 ]);
 ```
 
-The array indexes are the names of the properties which are the `Swift_Mime_SimpleMessage` methods names without the 
-`set` word and with lowercase first letter. For example, the `body` property corresponds to the `setBody` method, 
+The array keys are the names of the properties that are the `Swift_Mime_SimpleMessage` methods names without the `set` 
+word and with the lowercase first letter. For example, the `body` property corresponds to the `setBody` method, 
 `readReceiptTo` to `setReadReceiptTo` and so on.
 
 The array values are the first and the only arguments for the corresponding methods. Properties with the `null` value 
-are discarded.
+are ignored.
 
 ### setDefault
 
