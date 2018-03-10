@@ -3,10 +3,21 @@ php:
     - 7.0
     - 7.1
     - 7.2
+    - nightly
+    - hhvm
 
 env:
     - DEPENDENCIES="high"
     - DEPENDENCIES="low"
+
+matrix:
+    allow_failures:
+        - php: hhvm
+        - php: nightly
+
+cache:
+    directories:
+        - .composer/cache
 
 install:
     - if [[ "$DEPENDENCIES" = 'high' ]]; then composer update; fi
