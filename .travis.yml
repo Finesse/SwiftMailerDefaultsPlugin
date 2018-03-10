@@ -17,7 +17,7 @@ matrix:
 
 cache:
     directories:
-        - .composer/cache
+        - $HOME/.composer/cache
 
 install:
     - if [[ "$DEPENDENCIES" = 'high' ]]; then composer update; fi
