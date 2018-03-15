@@ -60,7 +60,7 @@ $mailer = new Swift_Mailer($transport);
 $mailer->registerPlugin($defaultsPlugin);
 ```
 
-For [Symfony](https://github.com/symfony/swiftmailer-bundle) you can register plugin this way:
+For [Symfony](https://github.com/symfony/swiftmailer-bundle) you can register the plugin this way:
 
 ```yaml
 services:
