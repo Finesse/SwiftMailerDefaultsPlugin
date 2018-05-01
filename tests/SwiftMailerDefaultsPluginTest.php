@@ -12,6 +12,19 @@ use Finesse\SwiftMailerDefaultsPlugin\SwiftMailerDefaultsPlugin;
 class SwiftMailerDefaultsPluginTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @inheritDoc
+     */
+    public static function setUpBeforeClass()
+    {
+        parent::setUpBeforeClass();
+
+        // Early SwiftMailer 4 versions don't support Composer autoload
+        if (!class_exists('\Swift_Message')) {
+            require __DIR__.'/../vendor/swiftmailer/swiftmailer/lib/swift_required.php';
+        }
+    }
+
+    /**
      * Tests passing default values to Message
      */
     public function testDefaultsToMessage()
