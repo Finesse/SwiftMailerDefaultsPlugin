@@ -1,5 +1,6 @@
 language: php
 php:
+    - 5.6
     - 7.0
     - 7.1
     - 7.2
@@ -7,10 +8,19 @@ php:
     - hhvm
 
 env:
-    - DEPENDENCIES="high"
-    - DEPENDENCIES="low"
+    - SWIFTMAILER=^4.0 DEPENDENCIES=high
+    - SWIFTMAILER=^4.0 DEPENDENCIES=low
+    - SWIFTMAILER=^5.0 DEPENDENCIES=high
+    - SWIFTMAILER=^5.0 DEPENDENCIES=low
+    - SWIFTMAILER=^6.0 DEPENDENCIES=high
+    - SWIFTMAILER=^6.0 DEPENDENCIES=low
 
 matrix:
+    exclude:
+        - php: 5.6
+          env: SWIFTMAILER=^6.0 DEPENDENCIES=high
+        - php: 5.6
+          env: SWIFTMAILER=^6.0 DEPENDENCIES=low
     allow_failures:
         - php: hhvm
         - php: nightly
@@ -20,9 +30,11 @@ cache:
         - $HOME/.composer/cache
 
 install:
-    - if [[ "$DEPENDENCIES" = 'high' ]]; then composer update; fi
-    - if [[ "$DEPENDENCIES" = 'low' ]]; then composer update --prefer-lowest; fi
-    - composer require php-coveralls/php-coveralls '^2.0' --dev
+    - if [[ ! -z $SWIFTMAILER ]]; then composer require "swiftmailer/swiftmailer $SWIFTMAILER" --no-update; fi
+    - if [[ ${TRAVIS_PHP_VERSION:0:3} > 7.1 ]]; then composer require "phpunit/phpunit >=6.0 <8" --dev --no-update; fi # PHPUnit 5 is installed in PHP 7.2 despite it doesn't work in PHP 7.2
+    - if [[ $DEPENDENCIES = high ]]; then composer update; fi
+    - if [[ $DEPENDENCIES = low ]]; then composer update --prefer-lowest; fi
+    - composer require php-coveralls/php-coveralls ^2.0 --dev
 
 script:
     - php vendor/bin/phpunit --coverage-clover ./tests/logs/clover.xml

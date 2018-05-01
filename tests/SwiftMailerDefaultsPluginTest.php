@@ -13,6 +13,19 @@ use PHPUnit\Framework\TestCase;
 class SwiftMailerDefaultsPluginTest extends TestCase
 {
     /**
+     * @inheritDoc
+     */
+    public static function setUpBeforeClass()
+    {
+        parent::setUpBeforeClass();
+
+        // Early SwiftMailer 4 versions don't support Composer autoload
+        if (!class_exists('\Swift_Message')) {
+            require __DIR__.'/../vendor/swiftmailer/swiftmailer/lib/swift_required.php';
+        }
+    }
+
+    /**
      * Tests passing default values to Message
      */
     public function testDefaultsToMessage()
