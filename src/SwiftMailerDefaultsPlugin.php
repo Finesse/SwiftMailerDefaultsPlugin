@@ -40,7 +40,7 @@ class SwiftMailerDefaultsPlugin implements \Swift_Events_EventListener, \Swift_E
      * @param string $property The property name. See the readme for more information.
      * @param array ...$arguments The list of argument for the Swift_Mime_SimpleMessage property setter
      */
-    public function setDefault(string $property, ...$arguments)
+    public function setDefault($property, ...$arguments)
     {
         $this->defaults[ucfirst($property)] = $arguments;
     }
@@ -50,7 +50,7 @@ class SwiftMailerDefaultsPlugin implements \Swift_Events_EventListener, \Swift_E
      *
      * @param string $property The property name. See the readme for more information.
      */
-    public function unsetDefault(string $property)
+    public function unsetDefault($property)
     {
         unset($this->defaults[ucfirst($property)]);
     }
