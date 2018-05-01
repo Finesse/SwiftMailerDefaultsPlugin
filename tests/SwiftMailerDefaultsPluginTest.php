@@ -3,14 +3,13 @@
 namespace Finesse\SwiftMailerDefaultsPlugin\Tests;
 
 use Finesse\SwiftMailerDefaultsPlugin\SwiftMailerDefaultsPlugin;
-use PHPUnit\Framework\TestCase;
 
 /**
  * Test for the SwiftMailerDefaultsPlugin class.
  *
  * @author Surgie
  */
-class SwiftMailerDefaultsPluginTest extends TestCase
+class SwiftMailerDefaultsPluginTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Tests passing default values to Message
