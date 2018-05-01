@@ -18,7 +18,9 @@ env:
 matrix:
     exclude:
         - php: 5.6
-          env: SWIFTMAILER_VERSION=6
+          env: SWIFTMAILER_VERSION=6 DEPENDENCIES=high
+        - php: 5.6
+          env: SWIFTMAILER_VERSION=6 DEPENDENCIES=low
     allow_failures:
         - php: hhvm
         - php: nightly
