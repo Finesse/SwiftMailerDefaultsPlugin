@@ -17,10 +17,10 @@ class SwiftMailerDefaultsPlugin implements \Swift_Events_EventListener, \Swift_E
     protected $defaults = [];
 
     /**
-     * @var \Swift_Mime_SimpleMessage|null Message that was received before sending and is not modified. It is kept to
-     *     restore the original message after sending.
+     * @var array The original values of a sent message properties which were replaced by the default properties. They
+     *     are kept to restore the original message properties after the sending.
      */
-    protected $originalMessage;
+    protected $originalValues = [];
 
     /**
      * @param array $defaults Default Message properties. See the readme for more information.
@@ -61,11 +61,11 @@ class SwiftMailerDefaultsPlugin implements \Swift_Events_EventListener, \Swift_E
     public function beforeSendPerformed(\Swift_Events_SendEvent $event)
     {
         $message = $event->getMessage();
-        $this->originalMessage = clone $message;
 
         foreach ($this->defaults as $property => $arguments) {
             $originalValue = $message->{'get'.$property}();
             if ($originalValue === null || $originalValue === '' || $originalValue === []) {
+                $this->originalValues[$property] = $originalValue;
                 $message->{'set'.$property}(...$arguments);
             }
         }
@@ -78,11 +78,10 @@ class SwiftMailerDefaultsPlugin implements \Swift_Events_EventListener, \Swift_E
     {
         $message = $event->getMessage();
 
-        foreach ($this->defaults as $property => $arguments) {
-            $originalValue = $this->originalMessage->{'get'.$property}();
+        foreach ($this->originalValues as $property => $originalValue) {
             $message->{'set'.$property}($originalValue);
         }
 
-        $this->originalMessage = null;
+        $this->originalValues = [];
     }
 }
