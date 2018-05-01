@@ -3,13 +3,14 @@
 namespace Finesse\SwiftMailerDefaultsPlugin\Tests;
 
 use Finesse\SwiftMailerDefaultsPlugin\SwiftMailerDefaultsPlugin;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test for the SwiftMailerDefaultsPlugin class.
  *
  * @author Surgie
  */
-class SwiftMailerDefaultsPluginTest extends \PHPUnit_Framework_TestCase
+class SwiftMailerDefaultsPluginTest extends TestCase
 {
     /**
      * @inheritDoc
