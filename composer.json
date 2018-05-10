@@ -3,7 +3,7 @@
 	"description": "A plugin for SwiftMailer and Symfony that sets default properties for email Messages (from, sender, reply to and so on)",
 	"keywords": ["swiftmailer", "plugin", "defaults", "symfony"],
 	"type": "library",
-	"homepage": "https://github.com/FinesseRus/SwiftMailerDefaultsPlugin",
+	"homepage": "https://github.com/Finesse/SwiftMailerDefaultsPlugin",
 	"license": "MIT",
 	"authors": [
 		{

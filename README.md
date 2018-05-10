@@ -3,8 +3,8 @@
 [![Latest Stable Version](https://poser.pugx.org/finesse/swiftmailer-defaults-plugin/v/stable)](https://packagist.org/packages/finesse/swiftmailer-defaults-plugin)
 [![Total Downloads](https://poser.pugx.org/finesse/swiftmailer-defaults-plugin/downloads)](https://packagist.org/packages/finesse/swiftmailer-defaults-plugin)
 ![PHP from Packagist](https://img.shields.io/packagist/php-v/finesse/swiftmailer-defaults-plugin.svg)
-[![Build Status](https://travis-ci.org/FinesseRus/SwiftMailerDefaultsPlugin.svg?branch=master)](https://travis-ci.org/FinesseRus/SwiftMailerDefaultsPlugin)
-[![Coverage Status](https://coveralls.io/repos/github/FinesseRus/SwiftMailerDefaultsPlugin/badge.svg?branch=master)](https://coveralls.io/github/FinesseRus/SwiftMailerDefaultsPlugin?branch=master)
+[![Build Status](https://travis-ci.org/Finesse/SwiftMailerDefaultsPlugin.svg?branch=master)](https://travis-ci.org/Finesse/SwiftMailerDefaultsPlugin)
+[![Coverage Status](https://coveralls.io/repos/github/Finesse/SwiftMailerDefaultsPlugin/badge.svg?branch=master)](https://coveralls.io/github/Finesse/SwiftMailerDefaultsPlugin?branch=master)
 [![Dependency Status](https://www.versioneye.com/php/finesse:swiftmailer-defaults-plugin/badge)](https://www.versioneye.com/php/finesse:swiftmailer-defaults-plugin)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/c0423fb6-bfb0-47a4-8a0c-eaae3e400634/mini.png)](https://insight.sensiolabs.com/projects/c0423fb6-bfb0-47a4-8a0c-eaae3e400634)
 
