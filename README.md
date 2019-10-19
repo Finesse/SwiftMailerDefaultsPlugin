@@ -3,10 +3,9 @@
 [![Latest Stable Version](https://poser.pugx.org/finesse/swiftmailer-defaults-plugin/v/stable)](https://packagist.org/packages/finesse/swiftmailer-defaults-plugin)
 [![Total Downloads](https://poser.pugx.org/finesse/swiftmailer-defaults-plugin/downloads)](https://packagist.org/packages/finesse/swiftmailer-defaults-plugin)
 ![PHP from Packagist](https://img.shields.io/packagist/php-v/finesse/swiftmailer-defaults-plugin.svg)
-[![Build Status](https://travis-ci.org/Finesse/SwiftMailerDefaultsPlugin.svg?branch=master)](https://travis-ci.org/Finesse/SwiftMailerDefaultsPlugin)
-[![Coverage Status](https://coveralls.io/repos/github/Finesse/SwiftMailerDefaultsPlugin/badge.svg?branch=master)](https://coveralls.io/github/Finesse/SwiftMailerDefaultsPlugin?branch=master)
-[![Dependency Status](https://www.versioneye.com/php/finesse:swiftmailer-defaults-plugin/badge)](https://www.versioneye.com/php/finesse:swiftmailer-defaults-plugin)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/c0423fb6-bfb0-47a4-8a0c-eaae3e400634/mini.png)](https://insight.sensiolabs.com/projects/c0423fb6-bfb0-47a4-8a0c-eaae3e400634)
+[![Test Status](https://github.com/finesse/SwiftMailerDefaultsPlugin/workflows/Test/badge.svg)](https://github.com/Finesse/SwiftMailerDefaultsPlugin/actions?workflow=Test)
+[![Maintainability](https://api.codeclimate.com/v1/badges/95f7873c5a91e2494345/maintainability)](https://codeclimate.com/github/Finesse/SwiftMailerDefaultsPlugin/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/95f7873c5a91e2494345/test_coverage)](https://codeclimate.com/github/Finesse/SwiftMailerDefaultsPlugin/test_coverage)
 
 This plugin adds a possibility to set default properties for the sent Messages 
 (default from address, reply to, subject and so on).

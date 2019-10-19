@@ -1,0 +1,47 @@
+name: Test
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version: ['5.6', '7.0', '7.1', '7.2', '7.3', '7.4']
+        swiftmailer-version: ['4.1.3', '^4', '5.0.0', '^5', '6.0.0', '^6']
+        exclude:
+          - php-version: '5.6'
+            swiftmailer-version: '6.0.0'
+          - php-version: '5.6'
+            swiftmailer-version: '^6'
+        include:
+          - php-version: '7.0'
+            swiftmailer-version: '^6'
+            report-coverage: true
+    name: PHP ${{ matrix.php-version }}, Swift Mailer ${{ matrix.swiftmailer-version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: Install PHP
+        uses: shivammathur/setup-php@1.4.3
+        with:
+          php-version: ${{ matrix.php-version }}
+          extension-csv: dom, mbstring
+      - name: Install dependencies
+        run: |
+          composer require "swiftmailer/swiftmailer ${{ matrix.swiftmailer-version }}" --no-update
+          if [[ ${{ matrix.php-version }} > 7.1 ]]
+            then composer require "phpunit/phpunit >=6.0 <8" --dev --no-update
+          fi
+          composer install
+      - name: Test and publish code coverage
+        if: matrix.report-coverage
+        uses: paambaati/codeclimate-action@v2.2.1
+        env:
+          # Get it on https://codeclimate.com/repos/{repo id}/settings/test_reporter
+          CC_TEST_REPORTER_ID: b9948835cb7b1f7ad91577de6eab208a107192fa1f536c06dd8b22e23dfcb31c
+        with:
+          # The report file must be there, otherwise Code Climate won't find it
+          coverageCommand: php vendor/bin/phpunit --coverage-text --coverage-clover ./clover.xml
+      - name: Test
+        if: "!matrix.report-coverage"
+        run: php vendor/bin/phpunit --coverage-text
