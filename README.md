@@ -60,8 +60,25 @@ $mailer = new Swift_Mailer($transport);
 $mailer->registerPlugin($defaultsPlugin);
 ```
 
-For [Symfony](https://github.com/symfony/swiftmailer-bundle) you can register the plugin this way:
+For [Symfony](https://github.com/symfony/swiftmailer-bundle) 4 you can register the plugin this way:
 
+```yaml
+services:
+    # Swift Mailer plugins
+    Finesse\SwiftMailerDefaultsPlugin\SwiftMailerDefaultsPlugin:
+        tags:
+              - { name: swiftmailer.default.plugin }
+        arguments:
+              $defaults:
+                  from:
+                      johndoe@example.com: John Doe
+                  replyTo: jackdoe@example.com
+     
+```
+
+<details>
+<summary>Symfony 3 example</summary>
+    
 ```yaml
 services:
     # Swift Mailer plugins
@@ -76,6 +93,8 @@ services:
                   replyTo: jackdoe@example.com
      
 ```
+
+</details>
 
 When you need to send an email, just send it without specifying the parameters you set to the plugin instance.
 
