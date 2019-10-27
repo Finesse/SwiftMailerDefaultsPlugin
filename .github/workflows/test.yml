@@ -35,7 +35,7 @@ jobs:
           composer install
       - name: Test and publish code coverage
         if: matrix.report-coverage
-        uses: paambaati/codeclimate-action@v2.2.2
+        uses: paambaati/codeclimate-action@v2.2.3
         env:
           # Get it on https://codeclimate.com/repos/{repo id}/settings/test_reporter
           CC_TEST_REPORTER_ID: b9948835cb7b1f7ad91577de6eab208a107192fa1f536c06dd8b22e23dfcb31c
